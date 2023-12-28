@@ -6,7 +6,7 @@ senec_ip="192.168.178.29"
 # Day of installation, the very first day where a log file exists
 installation_date="2020-11-27"
 
-########## THEY DON'T CHANGE ANYTHING HERE (UNLESS YOU KNOW WHAT YOU'RE DOING) #############################
+########## DON'T CHANGE ANYTHING BELOW (UNLESS YOU KNOW WHAT YOU'RE DOING) #############################
 
 # Start downloading from the last day where a log file exists
 latest_file=$(find ./logs -type f -name "*.log" | sort -r | head -n 1)
