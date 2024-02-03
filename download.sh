@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Define IP address of SENEC
-senec_ip="192.168.178.29"
+# Define host name or IP address of your SENEC device
+senec_host="senec.fritz.box"
 
 # Day of installation, the very first day where a log file exists
 installation_date="2020-11-27"
@@ -25,7 +25,7 @@ fi
 end_date=$(date +"%Y-%m-%d")
 
 # Define base URL
-base_url="https://$senec_ip//Log"
+base_url="https://$senec_host//Log"
 
 # Initialize current_date to start_date
 current_date=$start_date
