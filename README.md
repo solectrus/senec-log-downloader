@@ -11,7 +11,12 @@ curl -sSO https://raw.githubusercontent.com/solectrus/senec-log-downloader/main/
 chmod +x download.sh
 ```
 
-Then, edit `download.sh` and set the IP address of your SENEC device and the installation date.
+For configuration, you can use your `.env` file from SOLECTRUS **or** create and edit a new one using the following commands:
+
+```
+curl -sSO https://raw.githubusercontent.com/solectrus/senec-log-downloader/main/.env
+nano .env
+```
 
 Now you can run the script with `./download.sh`. After the script has finished, you will find the results in the `logs/` directory.
 

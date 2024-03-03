@@ -1,18 +1,42 @@
 #!/bin/bash
 
-# Define host name or IP address of your SENEC device
-senec_host="senec.fritz.box"
+# This script downloads the log files from a SENEC device.
+#
+# It requires an .env file with the following variables:
+# - SENEC_HOST: Host name or IP address of your SENEC device
+# - INSTALLATION_DATE: Date of installation in the format "YYYY-MM-DD"
+# - SENEC_SCHEMA (optional): http or https (default)
 
-# Day of installation, the very first day where a log file exists
-installation_date="2020-11-27"
+########## NO NEED TO CHANGE ANYTHING HERE (UNLESS YOU KNOW WHAT YOU'RE DOING) #############################
 
-########## DON'T CHANGE ANYTHING BELOW (UNLESS YOU KNOW WHAT YOU'RE DOING) #############################
+# Check if .env file exists
+if [ ! -f ".env" ]; then
+    echo "Error: .env file not found!"
+    exit 1
+else
+    source ".env"
+fi
+
+# Ensure SENEC_HOST and INSTALLATION_DATE are set in .env
+if [ -z "$SENEC_HOST" ] || [ -z "$INSTALLATION_DATE" ]; then
+    echo "Error: SENEC_HOST and INSTALLATION_DATE must be defined in .env!"
+    exit 1
+fi
+
+# Use SENEC_SCHEMA from .env if available, default to https
+senec_schema=${SENEC_SCHEMA:-https}
+
+# Use Host name or IP address of the SENEC device from .env
+senec_host=$SENEC_HOST
+
+# Use Day of installation from .env
+installation_date=$INSTALLATION_DATE
 
 # Start downloading from the last day where a log file exists
 latest_file=$(find ./logs -type f -name "*.log" | sort -r | head -n 1)
 
 if [[ -z "$latest_file" ]]; then
-    echo "No log files found. Starting from installation date"
+    echo "No log files found. Starting from installation date: $installation_date"
     start_date=$installation_date
 else
     day=$(basename $latest_file .log)
@@ -24,8 +48,8 @@ fi
 ## Download until today
 end_date=$(date +"%Y-%m-%d")
 
-# Define base URL
-base_url="https://$senec_host//Log"
+# Define base URL with the schema from .env or default
+base_url="${senec_schema}://$senec_host//Log"
 
 # Initialize current_date to start_date
 current_date=$start_date
