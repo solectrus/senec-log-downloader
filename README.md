@@ -47,3 +47,9 @@ grep -rh "Changed operating mode" logs | sort
 ```bash
 grep -rh "Switched off" logs | sort
 ```
+
+### External control mode
+
+```bash
+grep -rh "external control mode" logs | sort
+```
